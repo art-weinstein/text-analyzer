@@ -1,3 +1,9 @@
+// Utility Logic 
+function noInputtedWord(word, text) {
+  return ((text.trim().length === 0) || (word.trim().length === 0));
+}
+
+
 // Business Logic
 
 function wordCounter(text) {
@@ -16,7 +22,7 @@ function wordCounter(text) {
 
 
 function numberOfOccurrencesInText(word, text) {
-  if ((text.trim().length === 0) || (word.trim().length === 0)) {
+  if (noInputtedWord(word, text)) {
     return 0;
   }
   const wordArray = text.split(" ");
@@ -28,19 +34,8 @@ function numberOfOccurrencesInText(word, text) {
   });
   return wordCount;
 }
-// UI Logic
-$(document).ready(function(){
-  $("form#word-counter").submit(function(event){
-    event.preventDefault();
-    const passage = $("#text-passage").val();
-    const word = $("#word").val();
-    const wordCount = wordCounter(passage);
-    const occurencesOfWord = numberOfOccurrencesInText(word, passage);
-    $("#total-count").html(wordCount);
-    $("#selected-count").html(occurencesOfWord);
-  });
-});
 
+// UI Logic
 
 function boldPassage(word, text) {
   let htmlString = "<p>";
@@ -57,6 +52,21 @@ function boldPassage(word, text) {
   });
   return htmlString + "</p>";
 }
+
+$(document).ready(function(){
+  $("form#word-counter").submit(function(event){
+    event.preventDefault();
+    const passage = $("#text-passage").val();
+    const word = $("#word").val();
+    const wordCount = wordCounter(passage);
+    const occurencesOfWord = numberOfOccurrencesInText(word, passage);
+    $("#total-count").html(wordCount);
+    $("#selected-count").html(occurencesOfWord);
+    $("#bolded-passage").html(boldPassage(word, passage));
+  });
+});
+
+
 
 // function numberOfOccurrencesInText(word, text) {
 //   if (text.trim().length === 0) {
