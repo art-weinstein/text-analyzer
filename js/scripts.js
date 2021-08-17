@@ -41,6 +41,7 @@ $(document).ready(function(){
   });
 });
 
+
 function boldPassage(word, text) {
   let htmlString = "<p>";
   let textArray = text.split(" ");
